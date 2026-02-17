@@ -14,10 +14,6 @@ class UiCard extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log('attributes changesd', name);
-        console.log('old value', oldValue);
-        console.log('new value', newValue);
-
         this.render();
     }
 
@@ -48,7 +44,7 @@ class UiCard extends HTMLElement {
                 header {
                     width:200px;
                     height:200px;
-                    border-radius:50%:
+                    border-radius:50%;
                 }
             </style>
 
@@ -67,11 +63,7 @@ class UiCard extends HTMLElement {
 
         const button = this.shadowRoot.querySelector('button');
 
-        console.log('button', button);
-
         button.addEventListener('click', () => {
-            console.log('click');
-
             const event = new CustomEvent("userSelected", {
                 detail: {
                     firstname: firstname,
@@ -86,54 +78,45 @@ class UiCard extends HTMLElement {
         });
 
         const duplicateButton = this.shadowRoot.getElementById('duplicate');
-        console.log('duplicateButton', duplicateButton);
 
         duplicateButton.addEventListener('click', () => {
-            console.log('click');
-
             const duplicateUserEvent = new CustomEvent("duplicateUser", {
                 detail: {
                     firstname: firstname,
                     lastname: lastname,
                     email: email,
-                    color: color,
+                    color: color
                 },
                 bubbles: true
-            });
+            })
 
             this.dispatchEvent(duplicateUserEvent);
-        });
-
+        })
     }
 }
 
 customElements.define("ui-card", UiCard);
 
 document.addEventListener('userSelected', (event) => {
-    console.log("quelque chose s'est passé", event)
-    alert(`user selected : ${event.detail.firstname}`)
 })
 
 document.addEventListener('duplicateUser', (event) => {
-    console.log("quelque chose s'est passé : duplication", event)
-    const container = document.querySelector('main')
-
     const user = {
         firstname: event.detail.firstname,
         lastname: event.detail.lastname,
         email: event.detail.email,
-        color: event.detail.color,
+        color: event.detail.color
     }
 
-    const newUICard = document.createElement("ui-card");
+    const newUICard = document.createElement('ui-card')
 
-    console.log('newUicard', newUICard);
+    const entries = Object.entries(user);
 
-    Object.entries(user).forEach(([key, value]) => {
-        console.log('key', key)
-        console.log('value', value)
+    entries.forEach(([key, value]) => {
         newUICard.setAttribute(key, value)
     })
 
-    container.appendChild(newUICard)
+    const main = document.querySelector('main');
+
+    main.appendChild(newUICard);
 })
