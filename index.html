@@ -8,17 +8,54 @@
 
 <body>
     <header>
-        <h1>Bonjour à tou.te.s</h1>
-        <p>Cours de web components</p>
+        <h1>Pokédex</h1>
+        <h3>Devoir noté : 24/02/2026</h3>
+        <p>Quentin Danneville</p>
     </header>
     <main>
-        <ui-card firstname="quentin" lastname="danneville" email="quentin.danneville@gmail.com" color="green">
-        </ui-card>
-        <ui-card firstname="Sophie" lastname="Dupont" email="sophie.dupont@gmail.com" color="red">
-        </ui-card>
-        <ui-card firstname="Jean" lastname="René" email="jean.rené@gmail.com" color="yellow">
-        </ui-card>
+        <div class="pokemon-list">
+            <h4>Liste des Pokémons</h4>
+            <div class="container">
+                <ui-pokemon name="Pikachu" image="https://www.pngarts.com/files/3/Pokemon-Pikachu-PNG-Image.png"
+                    color="yellow" type="electrique" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Bulbizard"
+                    image="https://www.pokepedia.fr/images/thumb/e/ef/Bulbizarre-RFVF.png/172px-Bulbizarre-RFVF.png"
+                    color="green" type="plante" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Salamèche"
+                    image="https://www.pokepedia.fr/images/thumb/8/89/Salam%C3%A8che-RFVF.png/500px-Salam%C3%A8che-RFVF.png"
+                    color="red" type="feu" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Carapuce"
+                    image="https://www.pokepedia.fr/images/thumb/c/cc/Carapuce-RFVF.png/500px-Carapuce-RFVF.png"
+                    color="blue" type="eau" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Pikachu" image="https://www.pngarts.com/files/3/Pokemon-Pikachu-PNG-Image.png"
+                    color="yellow" type="electrique" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Bulbizard"
+                    image="https://www.pokepedia.fr/images/thumb/e/ef/Bulbizarre-RFVF.png/172px-Bulbizarre-RFVF.png"
+                    color="green" type="plante" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Salamèche"
+                    image="https://www.pokepedia.fr/images/thumb/e/ef/Bulbizarre-RFVF.png/172px-Bulbizarre-RFVF.png"
+                    color="red" type="feu" pv="60">
+                </ui-pokemon>
+                <ui-pokemon name="Carapuce"
+                    image="https://www.pokepedia.fr/images/thumb/e/ef/Bulbizarre-RFVF.png/172px-Bulbizarre-RFVF.png"
+                    color="blue" type="eau" pv="60">
+                </ui-pokemon>
+            </div>
+        </div>
+        <div class="pokemon-captured">
+            <h4>Pokémon capturé</h4>
+        </div>
     </main>
+    <header>
+        <h1>UNC</h1>
+        <h3>2026</h3>
+    </header>
     <!-- On link notre JS -->
     <script src="index.js"></script>
 </body>

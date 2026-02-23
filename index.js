@@ -1,7 +1,6 @@
-class UiCard extends HTMLElement {
-
+class Pokemon extends HTMLElement {
     static get observedAttributes() {
-        return ['firstname', 'lastname', 'email', 'color']
+        return ['name', 'type', 'pv', 'image', 'color']
     }
 
     constructor() {
@@ -13,22 +12,16 @@ class UiCard extends HTMLElement {
         this.render();
     }
 
-    attributeChangedCallback(name, oldValue, newValue) {
-        this.render();
-    }
-
     render() {
-        const firstname = this.getAttribute("firstname");
-        const lastname = this.getAttribute("lastname");
-        const email = this.getAttribute("email");
+
+        const name = this.getAttribute("name");
+        const type = this.getAttribute("type");
+        const pv = this.getAttribute("pv");
+        const image = this.getAttribute("image");
         const color = this.getAttribute("color");
 
         this.shadowRoot.innerHTML = `
             <style>
-                :host {
-                    width: calc(33.333% - 14px);
-                }
-
                 div {
                     display: flex;
                     flex-direction: column;
@@ -42,81 +35,163 @@ class UiCard extends HTMLElement {
                 }
 
                 header {
-                    width:200px;
-                    height:200px;
-                    border-radius:50%;
+
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:start;
+
+                    width:100%;
+                    min-height:300px;
+
+                    background-size:cover;
+                    background-position:center;
+                    background-repeat:no-repeat;
+
+                }
+
+                article {
+                    width:100%;
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                }
+
+                .pv {
+                    font-size:40px;
+                    background:red;
+                    padding:0;
+                    margin:0;
+
+                    background:white;
+                    border-radius:10px;
+                    color:#222;
+                    font-weight:bold;
+                }
+
+                .name {
+                    padding:0;
+                    margin:0;
+
+                    font-size:20px;
+                    font-weight:bold;
+                }
+
+                .color {
+                    display:block;
+                    width:50px;
+                    height:10px;
                 }
             </style>
 
             <div>
-                <header style="background:${color}">
+                <header style="background-image:url('${image}')">
+                    <p class="name"><strong>${name}</strong></p>
+                    <p class="pv">${pv}</p>
                 </header>
                 <article>
-                    <p>Prénom : <strong>${firstname}</strong></p>
-                    <p>Nom : <strong>${lastname}</strong></p>
-                    <p>Email : <strong>${email}</strong></p>
-                    <button>Voir le profil</button>
-                    <button id="duplicate">Dupliquer</button>
+                    <p><strong>${type}</strong></p>
+                    <span class="color" style="background:${color}"></span>
                 </article>
+                <ui-pokeball
+                    name=${name}
+                    color=${color}
+                    type=${type}
+                    image=${image}
+                    pv=${pv}
+                >
+                </ui-pokeball>
             </div>
+        `
+    }
+}
+
+class Pokeball extends HTMLElement {
+    constructor() {
+        super()
+        this.attachShadow({ mode: "open" });
+    }
+
+    connectedCallback() {
+        this.render();
+    }
+
+    render() {
+        const name = this.getAttribute("name");
+        const type = this.getAttribute("type");
+        const image = this.getAttribute("image");
+        const pv = this.getAttribute("pv");
+        const color = this.getAttribute("color");
+
+        this.shadowRoot.innerHTML = `
+            <style>
+                button {
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+
+                    background:red;
+                    button-appearance:nonce;
+                    border:2px solid white;;
+                    padding:20px;
+                    border-radius:50%;
+
+                    cursor:pointer;
+                    transition:all 0.15s ease;
+                }
+
+                button:hover {
+                    background:blue;
+                    transform:scale(1.5);
+                }
+            </style>
+
+            <button></button>
         `
 
         const button = this.shadowRoot.querySelector('button');
 
         button.addEventListener('click', () => {
-            const event = new CustomEvent("userSelected", {
+            const event = new CustomEvent("pokemonCaptured", {
                 detail: {
-                    firstname: firstname,
-                    lastname: lastname,
-                    email: email,
-                    color: color
+                    name: name,
+                    type: type,
+                    image: image,
+                    color: color,
+                    pv: pv
                 },
-                bubbles: true
+                bubbles: true,
+                composed: true
             });
+
+            console.log('event', event)
 
             this.dispatchEvent(event);
         });
-
-        const duplicateButton = this.shadowRoot.getElementById('duplicate');
-
-        duplicateButton.addEventListener('click', () => {
-            const duplicateUserEvent = new CustomEvent("duplicateUser", {
-                detail: {
-                    firstname: firstname,
-                    lastname: lastname,
-                    email: email,
-                    color: color
-                },
-                bubbles: true
-            })
-
-            this.dispatchEvent(duplicateUserEvent);
-        })
     }
 }
 
-customElements.define("ui-card", UiCard);
-
-document.addEventListener('userSelected', (event) => {
-})
-
-document.addEventListener('duplicateUser', (event) => {
-    const user = {
-        firstname: event.detail.firstname,
-        lastname: event.detail.lastname,
-        email: event.detail.email,
-        color: event.detail.color
+document.addEventListener('pokemonCaptured', (event) => {
+    const pokemon = {
+        name: event.detail.name,
+        type: event.detail.type,
+        image: event.detail.image,
+        color: event.detail.color,
+        pv: event.detail.pv
     }
 
-    const newUICard = document.createElement('ui-card')
+    const pokemonCaptured = document.createElement('ui-pokemon')
 
-    const entries = Object.entries(user);
+    const entries = Object.entries(pokemon);
 
     entries.forEach(([key, value]) => {
-        newUICard.setAttribute(key, value)
+        pokemonCaptured.setAttribute(key, value)
     })
 
-    const main = document.querySelector('main');
+    const container = document.querySelector('.pokemon-captured');
 
-    main.appendChild(newUICard);
+    container.removeChild(container.lastChild)
+    container.appendChild(pokemonCaptured);
 })
+
+customElements.define("ui-pokemon", Pokemon);
+customElements.define("ui-pokeball", Pokeball);
