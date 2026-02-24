@@ -1,0 +1,24 @@
+{
+  "name": "unc-web-components",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/qdanneville/unc-web-components#readme",
+  "bugs": {
+    "url": "https://github.com/qdanneville/unc-web-components/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qdanneville/unc-web-components.git"
+  },
+  "license": "ISC",
+  "author": "Quentin Danneville",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
