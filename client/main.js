@@ -1,1 +1,1 @@
-import "./components/smart-player.js";
+import './components/smart-player.js'

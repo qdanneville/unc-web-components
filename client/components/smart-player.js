@@ -1,7 +1,7 @@
-import "./player-track.js"
-import "./player-controls.js"
+import './player-track.js'
+import './player-controls.js'
 
-export class SmartPlayer extends HTMLElement {
+class SmartPlayer extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' })
@@ -14,18 +14,23 @@ export class SmartPlayer extends HTMLElement {
 
     render() {
 
-        const title = this.getAttribute('title');
-        const src = this.getAttribute('src');
-        const artist = this.getAttribute('artist');
+        const src = this.getAttribute('src')
+        const title = this.getAttribute('title')
+        const artist = this.getAttribute('artist')
 
         this.shadowRoot.innerHTML = `
 
         <style>
             main {
-                border:solid 1px black;
-                border-radius:10px;
+                display:flex;
+                flex-direction:column;
+                justify-content:center;
+                align-items:center;
+                text-align:center;
+
                 background:white;
-                box-shadow:2px 2px 2px rgba(0,0,0,0.5);
+                border-radius:20px;
+                box-shadow:0px 2px 2px rgba(0,0,0,4px);
             }
         </style>
 
@@ -38,18 +43,13 @@ export class SmartPlayer extends HTMLElement {
     }
 
     setupEvents() {
-        // Les événements enfants remontent jusqu'au shadowRoot grâce à bubbles + composed
         this.shadowRoot.addEventListener('player-play', () => {
             console.log('player play')
-            // this._audio.play();
-            // this._setPlayingState(true);
-        });
+        })
 
         this.shadowRoot.addEventListener('player-pause', () => {
             console.log('player pause')
-            // this._audio.pause();
-            // this._setPlayingState(false);
-        });
+        })
     }
 }
 
