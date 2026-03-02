@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Music Player – TP Web Components</title>
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        h1 {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>TP Web Components – Smart Player</h1>
+
+    <!--
+        Remplacez la valeur de src par l'URL ou le chemin de votre fichier audio.
+        Exemple local : src="/audio/ma-musique.mp3"
+    -->
+    <smart-player
+        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        title="SoundHelix Song 1"
+        artist="SoundHelix"
+    ></smart-player>
+
+    <script type="module" src="./player.js"></script>
+</body>
+
+</html>
