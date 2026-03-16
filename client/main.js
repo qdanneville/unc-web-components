@@ -1,1 +1,0 @@
-import './components/smart-player.js'
