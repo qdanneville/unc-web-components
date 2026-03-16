@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LikeButton } from '../like-button/like-button';
+import { FollowButton } from '../follow-button/follow-button';
 
 
 @Component({
   selector: 'app-user-card',
-  imports: [LikeButton],
+  imports: [LikeButton, FollowButton],
   templateUrl: './user-card.html',
   styleUrl: './user-card.css',
 })
@@ -15,7 +16,19 @@ export class UserCard {
 
   likes = 0;
 
+  @Output()
+  liked = new EventEmitter<number>();
+
+  @Output()
+  isFollowed = new EventEmitter<boolean>();
+
   onLiked(count: number) {
     this.likes = count;
+    this.liked.emit(1)
+  }
+
+  onFollowed(followed: boolean) {
+    console.log('onfollow user card', followed)
+    this.isFollowed.emit(followed)
   }
 }

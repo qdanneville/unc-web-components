@@ -1,14 +1,11 @@
 <main>
   <h1>Bonjour, c'est notre première application Angular</h1>
-  <app-user-card
-      name="Alice"
-      bio="Développeuse Frontend"
-      avatar="https://i.pravatar.cc/150?img=1">
+  @for (user of users; track user.name) {
+  <app-user-card [name]="user.name" [bio]="user.bio" [avatar]="user.avatar" (liked)="onLiked($event)"
+    (isFollowed)="onFollowed($event, user.name)">
   </app-user-card>
-
-  <app-user-card
-    name="Bob"
-    bio="UX Designer"
-    avatar="https://i.pravatar.cc/150?img=2">
-  </app-user-card>
+  }
+  <p>Total Likes : {{totalLikes}}</p>
+  <hr />
+  <app-stats-panel [followedUsers]="followedUsers"></app-stats-panel>
 </main>
