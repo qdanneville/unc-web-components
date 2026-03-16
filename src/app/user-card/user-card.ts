@@ -28,7 +28,6 @@ export class UserCard {
   }
 
   onFollowed(followed: boolean) {
-    console.log('onfollow user card', followed)
-    this.isFollowed.emit(followed)
+    this.isFollowed.emit(followed);
   }
 }

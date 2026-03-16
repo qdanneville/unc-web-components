@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserCard } from './user-card/user-card'
 import { StatsPanel } from './stats-panel/stats-panel';
 
@@ -9,9 +9,7 @@ import { StatsPanel } from './stats-panel/stats-panel';
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('social-app');
-
-  followedUsers = [""]
+  followedUsers: string[] = [];
 
   users = [
     {
@@ -38,9 +36,6 @@ export class App {
   }
 
   onFollowed(followed: boolean, userName: string) {
-    console.log('user', userName)
-    console.log('followed', followed)
-
     if (followed) {
       this.followedUsers.push(userName)
     } else {
